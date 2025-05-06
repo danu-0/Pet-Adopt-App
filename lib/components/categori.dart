@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:pet_adopted_app/theme/colour.dart';
+import 'package:pet_adopted_app/theme/text.dart';
 
 class Categori extends StatefulWidget {
   const Categori({super.key});
@@ -26,20 +27,14 @@ class _CategoriState extends State<Categori> {
               width: 100,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colour.blue, width: 2)),
+                  border: Border.all(color: baseColour, width: 2)),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      radius: 20,
-                      backgroundColor: Colour.yellow,
-                      child: Text('${index}'),
-                    ),
-                    Gap(2),
-                    Text('Dog'),
-                  ],
+                child: Center(
+                  child: Text(
+                    'Dog',
+                    style: TextW.regulerLink,
+                  ),
                 ),
               ),
             );
