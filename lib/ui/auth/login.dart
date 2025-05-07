@@ -2,13 +2,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:pet_adopted_app/components/bottom.dart';
-import 'package:pet_adopted_app/components/form.dart';
-import 'package:pet_adopted_app/controller/controller.dart';
-import 'package:pet_adopted_app/data/api/sercvices.dart';
-import 'package:pet_adopted_app/theme/text.dart';
-import 'package:pet_adopted_app/ui/HomeScreen/home.dart';
-import 'package:pet_adopted_app/ui/auth/register.dart';
+import '/components/bottom.dart';
+import '/components/form.dart';
+import '/controller/controller.dart';
+import '/data/api/sercvices.dart';
+import '/theme/text.dart';
+import '/ui/HomeScreen/home.dart';
+import '/ui/auth/register.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {

@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:pet_adopted_app/data/api/model.dart';
+import '/data/api/model.dart';
 
 class Service {
-  final base_url = "https://pet-be-eight.vercel.app/api";
+  final String base_url = "https://pet-be-eight.vercel.app/api";
 
   Future<List<User>> fetchUser() async {
     try {

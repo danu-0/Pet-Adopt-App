@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pet_adopted_app/controller/controller.dart';
-import 'package:pet_adopted_app/ui/auth/register.dart';
-import 'package:pet_adopted_app/ui/splash/splash.dart';
+import './controller/controller.dart';
+import './ui/auth/register.dart';
+import './ui/splash/splash.dart';
 
-void main() {
+void main() async {
   Get.put(UserController());
   runApp(const MyApp());
 }
@@ -12,7 +12,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(

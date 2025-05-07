@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gap/gap.dart';
-import 'package:pet_adopted_app/components/bottom.dart';
-import 'package:pet_adopted_app/components/form.dart';
-import 'package:pet_adopted_app/data/api/sercvices.dart';
-import 'package:pet_adopted_app/theme/text.dart';
-import 'package:pet_adopted_app/ui/auth/login.dart';
+import '/components/bottom.dart';
+import '/components/form.dart';
+import '/data/api/sercvices.dart';
+import '/theme/text.dart';
+import '/ui/auth/login.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -64,7 +64,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 60, horizontal: 30),
+        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/material/bg.png'),
@@ -72,6 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
         ),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(Icons.pets,
                 size: 64, color: Color.fromARGB(255, 103, 63, 188)),

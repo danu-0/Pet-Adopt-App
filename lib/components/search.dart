@@ -4,14 +4,16 @@ import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
 class SearchEngine extends StatefulWidget {
-  const SearchEngine({super.key});
+  final Function(String) onSearch;
+
+  const SearchEngine({super.key, required this.onSearch});
 
   @override
   State<SearchEngine> createState() => _SearchEngineState();
 }
 
 class _SearchEngineState extends State<SearchEngine> {
-  String searchQuerry = "";
+  String searchQuery = "";
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,12 @@ class _SearchEngineState extends State<SearchEngine> {
           Gap(20),
           Expanded(
             child: TextField(
+              onChanged: (query) {
+                setState(() {
+                  searchQuery = query;
+                });
+                widget.onSearch(searchQuery); // Call the callback
+              },
               decoration: InputDecoration(
                 hintText: 'Cari Hewan..',
                 prefixIcon: Icon(Icons.search),

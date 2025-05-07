@@ -48,8 +48,25 @@ class UserController extends GetxController {
 
 class PetController extends GetxController {
   var petData = <Pet>[].obs;
+  var selectedCategory = ''.obs;
 
-  void setPet(List<Pet> data) {
-    petData.value = data;
+  void setPet(List<Pet> pets) {
+    petData.value = pets;
+  }
+
+  void setCategory(String category) {
+    selectedCategory.value = category;
+  }
+
+  List<Pet> get filteredPets {
+    if (selectedCategory.value.isEmpty) {
+      return petData;
+    } else {
+      return petData
+          .where((pet) =>
+              pet.category.toLowerCase() ==
+              selectedCategory.value.toLowerCase())
+          .toList();
+    }
   }
 }

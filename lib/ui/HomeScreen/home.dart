@@ -1,15 +1,15 @@
 import "package:flutter/material.dart";
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:pet_adopted_app/components/card.dart';
-import 'package:pet_adopted_app/components/categori.dart';
-import 'package:pet_adopted_app/controller/controller.dart';
-import 'package:pet_adopted_app/data/api/model.dart';
-import 'package:pet_adopted_app/data/api/sercvices.dart';
-import 'package:pet_adopted_app/theme/colour.dart';
-import 'package:pet_adopted_app/theme/text.dart';
-import 'package:pet_adopted_app/ui/HomeScreen/detail.dart';
-import 'package:pet_adopted_app/ui/HomeScreen/homeList.dart';
+import '/components/card.dart';
+import '/components/categori.dart';
+import '/controller/controller.dart';
+import '/data/api/model.dart';
+import '/data/api/sercvices.dart';
+import '/theme/colour.dart';
+import '/theme/text.dart';
+import '/ui/HomeScreen/detail.dart';
+import '/ui/HomeScreen/homeList.dart';
 
 class Home extends StatefulWidget {
   Home({super.key});
@@ -23,12 +23,24 @@ class _HomeState extends State<Home> {
   Service service = Service();
   bool isLoading = false;
   List<Pet> pets = [];
+  List<Pet> filteredPets = [];
+  String selectedCategory = 'Semua';
+
+  List<String> categories = [
+    'Semua',
+    'Cat',
+    'Dog',
+    'Rabbit',
+    'Hamster',
+    'Bird'
+  ];
 
   Future<void> myPet() async {
     setState(() => isLoading = true);
 
     try {
       pets = await service.fetchPet();
+      filterPets();
       petController.setPet(pets);
     } catch (e) {
       print("Error fetching pets: $e");
@@ -37,6 +49,23 @@ class _HomeState extends State<Home> {
     }
 
     setState(() => isLoading = false);
+  }
+
+  void filterPets() {
+    if (selectedCategory == 'Semua') {
+      filteredPets = pets;
+    } else {
+      filteredPets = pets
+          .where((pet) =>
+              pet.category.toLowerCase() == selectedCategory.toLowerCase())
+          .toList();
+    }
+    setState(() {});
+  }
+
+  void updateCategory(String category) {
+    selectedCategory = category;
+    filterPets();
   }
 
   @override
@@ -133,16 +162,19 @@ class _HomeState extends State<Home> {
                   ),
 
                   Gap(24),
-
                   Text('Kategori', style: TextApp.h2),
-                  Categori(),
+                  Categori(
+                    categories: categories,
+                    selectedCategory: selectedCategory,
+                    onSelectedCategory: updateCategory,
+                  ),
 
                   Gap(16),
 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Hewan Pendatang', style: TextApp.h2),
+                      Text('Hewan Rekomendasi', style: TextApp.h2),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -164,27 +196,29 @@ class _HomeState extends State<Home> {
                         ? Center(child: CircularProgressIndicator())
                         : pets.isEmpty
                             ? Center(child: Text("Tidak ada data hewan"))
-                            : ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: pets.length,
-                                itemBuilder: (context, index) {
-                                  final pet = pets[index];
-                                  return GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DetailPet(pet: pet)),
-                                        );
-                                      },
-                                      child: card(
-                                          gambar: pet.image,
-                                          petName: pet.name,
-                                          location: pet.location,
-                                          kategory: pet.category));
-                                },
-                              ),
+                            : filteredPets.isEmpty
+                                ? Center(child: Text("Tidak ada data hewan"))
+                                : ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: filteredPets.length,
+                                    itemBuilder: (context, index) {
+                                      final pet = filteredPets[index];
+                                      return GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DetailPet(pet: pet)),
+                                            );
+                                          },
+                                          child: card(
+                                              gambar: pet.image,
+                                              petName: pet.name,
+                                              location: pet.location,
+                                              kategory: pet.category));
+                                    },
+                                  ),
                   ),
 
                   Gap(16),

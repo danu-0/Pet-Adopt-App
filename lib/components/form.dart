@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pet_adopted_app/theme/colour.dart';
-import 'package:pet_adopted_app/theme/text.dart';
+import '/theme/colour.dart';
+import '/theme/text.dart';
 
 class CustomForm extends StatelessWidget {
   final String desk;
@@ -83,7 +83,7 @@ class CustomFormP extends StatelessWidget {
             () => TextFormField(
               controller: controller,
               validator: validator,
-              maxLength: 6,
+              maxLength: 5,
               obscureText: _obsecure.value,
               decoration: InputDecoration(
                 prefixIcon: Icon(
