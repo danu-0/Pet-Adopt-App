@@ -8,6 +8,7 @@ class buton extends StatelessWidget {
   final String text;
 
   const buton({
+    super.key,
     required this.onPressed,
     required this.text,
   });

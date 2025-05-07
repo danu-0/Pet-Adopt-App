@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:pet_adopted_app/components/banner.dart';
 import '/components/card.dart';
 import '/components/categori.dart';
 import '/controller/controller.dart';
@@ -145,21 +146,17 @@ class _HomeState extends State<Home> {
                   Gap(12),
 
                   Container(
-                    height: 160,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: baseColour,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.asset(
-                        'assets/material/2.png',
-                        fit: BoxFit.cover,
-                        alignment: Alignment.center,
+                      height: 160,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: baseColour,
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    ),
-                  ),
+                      child: AutoScrollingBackground(imageList: [
+                        'assets/material/1.png',
+                        'assets/material/2.png',
+                        'assets/material/3.png',
+                      ])),
 
                   Gap(24),
                   Text('Kategori', style: TextApp.h2),
@@ -189,7 +186,6 @@ class _HomeState extends State<Home> {
 
                   Gap(12),
 
-                  // List horizontal pet data dari API
                   SizedBox(
                     height: 200,
                     child: isLoading

@@ -29,6 +29,8 @@ class _DetailPetState extends State<DetailPet> {
 
     return Scaffold(
       body: Container(
+        height: double.infinity,
+        width: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/material/bg.png'),

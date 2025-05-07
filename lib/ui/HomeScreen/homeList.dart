@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:pet_adopted_app/ui/HomeScreen/detail.dart';
 import '/components/categori.dart';
 import '/components/search.dart';
 import '/controller/controller.dart';
@@ -64,101 +65,120 @@ class _HomelistState extends State<Homelist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SearchEngine(onSearch: (query) {
-                setState(() {
-                  searchQuery = query;
-                });
-                filterPets();
-              }),
-              Gap(12),
-              Text('Kategori', style: TextApp.h2),
-              Categori(
-                categories: categories,
-                selectedCategory: selectedCategory,
-                onSelectedCategory: updateCategory,
-              ),
-              Gap(16),
-              Expanded(
-                child: filteredPets.isEmpty
-                    ? Center(child: Text('Tidak ada data hewan'))
-                    : GridView.builder(
-                        padding: EdgeInsets.only(bottom: 12),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 12,
-                          mainAxisSpacing: 12,
-                          childAspectRatio: 3 / 4.2,
-                        ),
-                        itemCount: filteredPets.length,
-                        itemBuilder: (context, index) {
-                          final pet = filteredPets[index];
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: blue.withOpacity(0.15),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(
-                                        pet.image,
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                      ),
-                                    ),
-                                  ),
-                                  Gap(6),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+      body: Container(
+        height: double.infinity,
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('assets/material/bg.png'),
+                fit: BoxFit.cover)),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SearchEngine(onSearch: (query) {
+                  setState(() {
+                    searchQuery = query;
+                  });
+                  filterPets();
+                }),
+                Gap(12),
+                Text('Kategori', style: TextApp.h2),
+                Categori(
+                  categories: categories,
+                  selectedCategory: selectedCategory,
+                  onSelectedCategory: updateCategory,
+                ),
+                Gap(16),
+                Expanded(
+                  child: filteredPets.isEmpty
+                      ? Center(child: Text('Tidak ada data hewan'))
+                      : GridView.builder(
+                          padding: EdgeInsets.only(bottom: 12),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 12,
+                            mainAxisSpacing: 12,
+                            childAspectRatio: 3 / 4.2,
+                          ),
+                          itemCount: filteredPets.length,
+                          itemBuilder: (context, index) {
+                            final pet = filteredPets[index];
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          DetailPet(pet: pet)),
+                                );
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: baseColour,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
-                                      Flexible(
-                                        child: Text(
-                                          pet.name,
-                                          style: TextApp.h3,
-                                          overflow: TextOverflow.ellipsis,
+                                      Expanded(
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          child: Image.network(
+                                            pet.image,
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                          ),
                                         ),
                                       ),
-                                      Text(
-                                        pet.category,
-                                        style: TextApp.reguler,
+                                      Gap(6),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Flexible(
+                                            child: Text(
+                                              pet.name,
+                                              style: TextApp.h3,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                          Text(
+                                            pet.category,
+                                            style: TextApp.reguler,
+                                          ),
+                                        ],
                                       ),
+                                      Gap(4),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.location_on,
+                                              size: 16, color: black),
+                                          Flexible(
+                                            child: Text(
+                                              pet.location,
+                                              style: TextApp.regulerS,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      )
                                     ],
                                   ),
-                                  Gap(4),
-                                  Row(
-                                    children: [
-                                      Icon(Icons.location_on,
-                                          size: 16, color: black),
-                                      Flexible(
-                                        child: Text(
-                                          pet.location,
-                                          style: TextApp.regulerS,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
+                                ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
-              ),
-            ],
+                            );
+                          },
+                        ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
